@@ -9,7 +9,8 @@
       </ul>
       <div class="form-group">
         <label>Title:</label> 
-        <input type="text" class="form-control" v-model="title">
+        <input type="text" class="form-control" v-model="title"> <br>
+        <small v-if="title.length < 1">Title must be longer than 1 character</small>
       </div>
       <div class="form-group">
         <label>year:</label>
@@ -17,7 +18,9 @@
       </div>
       <div class="form-group">
         <label>plot:</label>
-        <input type="text" class="form-control" v-model="plot">
+        <input type="text" class="form-control" v-model="plot"> <br>
+        <small> {{ 55 - plot.length }} characters remaining</small>
+        <small v-if="plot.length > 55">Plot can't be longer than 55 characters</small>
       </div>
       <!-- <div class="form-group">
         <label>User Id:</label>
