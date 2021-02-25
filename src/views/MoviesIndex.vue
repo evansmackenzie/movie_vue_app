@@ -7,20 +7,28 @@
       </option>
     </datalist>
     <button v-on:click="setAttribute = 'title'">Sort by Title</button>
-    <div
-      v-for="movie in orderBy(
-        filterBy(movies, titleFilter, 'title'),
-        setAttribute
-      )"
-      v-bind:key="movie.id"
-    >
-      <h1>Title: {{ movie.title }}</h1>
-      <p>plot: {{ movie.plot }}</p>
-      <p>year: {{ movie.year }}</p>
-      <p>director: {{ movie.director }}</p>
-      <p>english? {{ movie.english }}</p>
-      <p>genres: {{ movie.genres }}</p>
-      <router-link :to="`movies/${movie.id}`">More Info</router-link>
+
+    <div class="row row-cols-1 row-cols-md-2">
+      <div
+        class="col mb-4"
+        v-for="movie in orderBy(
+          filterBy(movies, titleFilter, 'title'),
+          setAttribute
+        )"
+        v-bind:key="movie.id"
+      >
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Title: {{ movie.title }}</h5>
+            <p class="card-text">plot: {{ movie.plot }}</p>
+            <p>year: {{ movie.year }}</p>
+            <p>director: {{ movie.director }}</p>
+            <p>english? {{ movie.english }}</p>
+            <p>genres: {{ movie.genres }}</p>
+            <router-link :to="`movies/${movie.id}`">More Info</router-link>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- <div>
@@ -36,18 +44,18 @@ import Vue2Filters from "vue2-filters";
 
 export default {
   mixins: [Vue2Filters.mixin],
-  data: function () {
+  data: function() {
     return {
       movies: [],
       titleFilter: "",
       setAttribute: "",
     };
   },
-  created: function () {
+  created: function() {
     this.indexMovies();
   },
   methods: {
-    indexMovies: function () {
+    indexMovies: function() {
       axios.get("http://localhost:3000/api/movies").then((response) => {
         console.log(response.data);
         this.movies = response.data;

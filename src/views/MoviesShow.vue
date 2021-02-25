@@ -1,6 +1,5 @@
 <template>
   <div class="movies-show">
-
     <div>
       {{ movie }}
       <h1>title: {{ movie.title }}</h1>
@@ -9,8 +8,9 @@
       <p>description: {{ movie.description }}</p>
     </div>
     <router-link :to="`/movies/${movie.id}/edit`">Edit</router-link>
-    <button v-on:click="movieDestroy()">Delete movie</button>
-    
+    <button type="button" class="btn btn-danger" v-on:click="movieDestroy()">
+      Delete movie
+    </button>
   </div>
 </template>
 
@@ -18,19 +18,19 @@
 import axios from "axios";
 
 export default {
-  data: function () {
+  data: function() {
     return {
       movie: {},
     };
   },
-  created: function () {
+  created: function() {
     axios.get(`/api/movies/${this.$route.params.id}`).then((response) => {
       console.log(response.data);
       this.movie = response.data;
     });
   },
   methods: {
-    movieDestroy: function () {
+    movieDestroy: function() {
       if (confirm("Are you sure you want to delete this movie?")) {
         axios
           .delete(`/api/movies/${this.$route.params.id}`)
